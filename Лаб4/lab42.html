@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<title>VK API</title>
+</head>
+
+<body>
+<form action="#">
+<fieldset>
+<legend>Поиск файла</legend>
+<input type='text' id ='dum' placeholder="Название файла..." >
+<button onclick="search(getElementById('dum').value)">Поиск</button>
+</fieldset>
+</form>
+<form action="#">
+<fieldset>
+<legend>Вывод файлов</legend>
+<button onclick="get()", id ="demo">Нажми</button>
+</fieldset>
+</form>
+<form action="#">
+<fieldset>
+<legend>Добавление и удаление файлов</legend>
+<input type='text' id ='dul' placeholder="ID владельца..." >
+<input type='text' id ='dup' placeholder="ID файла..." >
+<button onclick="add(getElementById('dul').value, getElementById('dup').value)">Добавить</button><p>
+<input type='text' id ='du' placeholder="ID файла..." >
+<button onclick="del(getElementById('du').value)">Удалить</button>
+</fieldset>
+</form>
+<script>
+
+function search(c){
+$.getJSON({
+url: 'https://api.vk.com/method/docs.search?q=' + c + '&search_own=1&access_token=6543d6b2f2a12afc6321e2816c88a4ad812838e4bd5425e97d1f0f63675b4720cc064b2d12c9dfb8a53a3&v=5.131',
+dataType: 'JSONP',
+success: function(data){
+showdocs(data.response.items)
+}
+});
+}
+
+function get(){
+$.getJSON({
+url: 'https://api.vk.com/method/docs.get?offset=0&owner_id=159001355&access_token=6543d6b2f2a12afc6321e2816c88a4ad812838e4bd5425e97d1f0f63675b4720cc064b2d12c9dfb8a53a3&v=5.131',
+dataType: 'JSONP',
+success: function(data){
+showdocs(data.response.items)
+}
+});
+}
+
+function add(c,d){
+$.getJSON({
+url: 'https://api.vk.com/method/docs.add?owner_id=' + c + '&doc_id=' + d + '&access_token=6543d6b2f2a12afc6321e2816c88a4ad812838e4bd5425e97d1f0f63675b4720cc064b2d12c9dfb8a53a3&v=5.131',
+dataType: 'JSONP',
+success: document.write('Файл добавлен')
+});
+}
+
+function del(c){
+$.getJSON({
+url: 'https://api.vk.com/method/docs.delete?owner_id=159001355&doc_id=' + c + '&access_token=6543d6b2f2a12afc6321e2816c88a4ad812838e4bd5425e97d1f0f63675b4720cc064b2d12c9dfb8a53a3&v=5.131',
+dataType: 'JSONP',
+success: document.write('Файл удален!')
+});
+}
+
+function showdocs(data){
+console.log(data)
+var usersHTML = "<table border='1'>";
+usersHTML += "<tr>";
+usersHTML += "<th>Название</th>";
+usersHTML += "<th>Ссылка</th>";
+usersHTML += "</tr>";
+
+for(var i=0; i<data.length; i++){
+usersHTML += "<tr>";
+usersHTML += "<td>" + data[i].title+ "</td>";
+usersHTML += "<td>" + data[i].url + "</td>";
+usersHTML +="</tr>";
+
+}
+document.getElementById("demo").innerHTML = usersHTML;
+}
+</script>
+</body>
+
+</html>

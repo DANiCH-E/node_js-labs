@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<title>Ticket #1 info</title>
+<body>
+
+<script>
+function writeContents(elem) {
+	let head = elem.getElementsByTagName('head');
+	var headChilds =  head[0].getElementsByTagName('*');
+	Array.from(headChilds).forEach((e) => document.write('<p>' + e.textContent  + '</p>'))
+	let info = elem.getElementsByTagName('actors');
+	var infoChilds =  info[0].getElementsByTagName('*');
+	Array.from(infoChilds).forEach((e) => document.write('<p>' + e.textContent  + '</p>'))
+}
+
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'Lab1.xml', false);
+xhr.send();
+let elements = xhr.responseXML.getElementsByTagName('Movies'); 
+writeContents(Array.from(elements)[0]);
+</script>
+
+</body>
+</html>

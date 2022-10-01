@@ -1,0 +1,40 @@
+Netflix
+{
+	background-color: #f1f1f1;
+	font-size:16px;
+}
+head
+{
+	display: block;
+	background-color: red;
+}
+title
+{
+	display:block;
+	color: black;
+	font-size: 25px;
+	font-weight: bold;
+}
+seasons, rating, release_date,  genre
+{
+	display: block;
+	background-color: blue;
+	color: #FFFFFF;
+	font-size: 20px;
+	margin-left: 20pt
+}
+actors
+{
+	display: block;
+	background-color: #f1f1f1;
+	font-size: 20px;
+	margin-left: 20pt
+}
+director, main_character, scenary, compositor, budget
+{
+	display: block;
+	background-color: #f1f1f1;
+	color: #000000;
+	font-size: 20px;
+	margin-left: 20pt
+}

@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            function formUserInfo(dict,index){
+                let info = dict["response"][index];
+                let first_name = info["first_name"];
+                let last_name = info['last_name'];
+                let onlinestatus = info['online'];
+                
+				if (onlinestatus==0)
+				{
+				   let result = "Имя: "+first_name+" <br>Фамилия: "+last_name+"<br>Статус: Оффлайн";
+				   return result;
+				}
+                else
+				{
+				   let result = "Имя: "+first_name+" <br>Фамилия: "+last_name+"<br>Статус: Онлайн";
+				   return result;
+				}
+				
+
+            }
+            $.ajax({
+                dataType: "JSONP",
+                url: "https://api.vk.com/method/users.get?v=5.131&access_token=7e9ea1cf7e9ea1cf7e9ea1cf9b7ee5d25f77e9e7e9ea1cf1c82550b85cb5d5c19b95f41&user_id=slavon_official,follow.a.goddamn.train,id228015874,vvjkee,sancho3105,hopply_time&fields=online&name_case=ins",
+                method : "GET",
+                success: function(data){
+                    for(let i=0;i<4;i++)
+					{
+					  let UserInfo = formUserInfo(data,i);
+					  let div1 = document.createElement("div");
+                      div1.innerHTML = "<p>"+UserInfo+"</p>";
+                      document.body.append(div1);
+					}
+                }
+            });
+
+        </script>
+    </body>
+</html>
+{"response":[{"id":210054530,"first_name":"Славой","last_name":"Семеновым","can_access_closed":true,"is_closed":false,"online":0},{"id":174754133,"first_name":"Артуром","last_name":"Бегларовым","can_access_closed":true,"is_closed":false,"online":0},{"id":228015874,"first_name":"Ксенией","last_name":"Прошиной","can_access_closed":true,"is_closed":false,"online":0},{"id":662860855,"first_name":"Владимиром","last_name":"Абрамовым","can_access_closed":true,"is_closed":false,"online":0},{"id":467724720,"first_name":"Александром","last_name":"Хорохориным","can_access_closed":false,"is_closed":true,"online":0}]}

@@ -1,0 +1,173 @@
+<?pcml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="Lab1.css"?>
+<Netflix>
+	<Movies>
+		<head>
+			<title>Сорвиголова</title>
+			<director>Режиссер:Фил Абрахам</director>
+			<genre>Жанр:Криминал, Фантастика, Боевик</genre>
+			<seasons>Количество сезонов:3</seasons>
+			<rating>Рейтинг:8,1</rating>
+			<release_date>Год выпуска:2015</release_date>
+		</head>
+		<actors>В главных ролях:
+			<main_character>Чарли Кокс,</main_character>
+			<main_character>Дебора Энн Уолл,</main_character>
+			<main_character>Винсент Д'Онофрио,</main_character>
+			<ingredient>Элден Хенсон.</ingredient>
+		</actors>
+	</Movies>
+	<Movies>
+		<head>
+			<title>Бумажный дом</title>
+			<director>Режиссер:Хесус Кольменар</director>
+			<genre>Жанр:Триллер</genre>
+			<seasons>Количество сезонов:5</seasons>
+			<rating>Рейтинг:8,9</rating>
+			<release_date>Год выпуска:2017</release_date>
+		</head>
+		<actors>В главных ролях:
+			<main_character>Урсула Корберо,</main_character>
+			<main_character>Альваро Морте,</main_character>
+			<main_character>Педро Алонсо,</main_character>
+			<main_character>Элден Хенсон.</main_character>
+		</actors>
+	</Movies>
+	<Movies>
+		<head>
+			<title>Ведьмак</title>
+			<director>Режиссер:Алик Сахаров</director>
+			<genre>Жанр:Фентези, Приключения, Драма</genre>
+			<seasons>Количество сезонов:2</seasons>
+			<rating>Рейтинг:6,2</rating>
+			<release_date>Год выпуска:2019</release_date>
+		</head>
+		<actors>В главных ролях:
+			<main_character>Генри Кавилл,</main_character>
+			<main_character>Фрейа Аллан,</main_character>
+			<main_character>Аня Чалотра,</main_character>
+			<main_character>Мими Дивени.</main_character>
+		</actors>
+	</Movies>
+	<Movies>
+		<head>
+			<title>Ход королевы</title>
+			<director>Режиссер:Скотт Фрэнк</director>
+			<genre>Жанр:Драма</genre>
+			<seasons>Количество сезонов:1</seasons>
+			<rating>Рейтинг:9,4</rating>
+			<release_date>Год выпуска:2020</release_date>
+		</head>
+		<actors>В главных ролях:
+			<main_character>Аня Тейлор-Джой,</main_character>
+			<main_character>Мариэль Хеллер,</main_character>
+			<main_character>Моусес Ингрем,</main_character>
+			<main_character>Билл Кэмп.</main_character>
+		</actors>
+	</Movies>
+</Netflix>
+---------------------------------------------------------------------------------
+Netflix
+{
+	background-color: #f1f1f1;
+	font-size:16px;
+}
+head
+{
+	display: block;
+	background-color: red;
+}
+title
+{
+	display:block;
+	color: black;
+	font-size: 25px;
+	font-weight: bold;
+}
+seasons, rating, release_date, director, genre
+{
+	display: block;
+	background-color: blue;
+	color: #FFFFFF;
+	font-size: 20px;
+	margin-left: 20pt
+}
+actors
+{
+	display: block;
+	background-color: #f1f1f1;
+	font-size: 20px;
+	margin-left: 20pt
+}
+------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<title>Netflix Movies</title>
+<body>
+
+<script>
+function writeContents(elem) {
+	let head = elem.getElementsByTagName('head');
+	var headChilds =  head[0].getElementsByTagName('*');
+	Array.from(headChilds).forEach((e) => document.write('<p>' + e.textContent  + '</p>'))
+	let info = elem.getElementsByTagName('actors');
+	var infoChilds =  info[0].getElementsByTagName('*');
+	Array.from(infoChilds).forEach((e) => document.write('<p>' + e.textContent  + '</p>'))
+}
+
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'Lab1.xml', false);
+xhr.send();
+let elements = xhr.responseXML.getElementsByTagName('Movies'); 
+writeContents(Array.from(elements)[0]);
+</script>
+
+</body>
+</html>
+--------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<title>Netflix Movies</title>
+<body>
+	<p><b>Введите номер фильма:</b><br>
+	   </p>
+	   <input id='number' type="text" onchange="query()">
+	   <input type="button" value="Поиск">
+<script>
+function query() {
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'Lab1.xml', false);
+	xhr.send();
+	
+	var id = document.getElementById('number').value;
+	let movies = xhr.responseXML.getElementsByTagName('Movies');
+	if (id < 1 || id > movies.length) {
+		alert("Ошибка! Такого фильма не существует! Попробуйте снова.");
+	} 
+	else {
+		id = id - 1;
+		let elements = xhr.responseXML.getElementsByTagName('title'); 
+		var message = Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('director'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('genre'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('rating'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('release_date'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('main_character');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('scenary');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('compositor');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('budget');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		alert(message)
+	}
+}
+</script>
+
+</body>
+</html>

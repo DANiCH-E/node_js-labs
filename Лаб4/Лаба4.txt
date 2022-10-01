@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+	<li class="button">
+    <button type="submit">Send your message</button>
+    </li>
+	
+	<form action="/my-handling-form-page" method="post">
+	<ul>
+		<li>
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="user_name">
+		<li>
+		<li>
+			<label for="mail">E-mail:</label>
+			<input type="email" id="mail" name="user_mail">
+		</li>
+		<li>
+			<label for="msg">Message:</label>
+			<textarea id="msg" name="user_message"></textarea>
+			
+		</li>
+	</ul>
+	</form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            function formUserInfo(dict,index){
+                let info = dict["response"][index];
+                let gorod = info["items"];
+				let city = gorod["title"]
+				let result = "Документ"+city;
+				return result;
+			
+
+            }
+            $.ajax({
+                dataType: "JSONP",
+                url: "https://api.vk.com/method/docs.get?v=5.131&access_token=6543d6b2f2a12afc6321e2816c88a4ad812838e4bd5425e97d1f0f63675b4720cc064b2d12c9dfb8a53a3&owner_id=159001355&fields=count,type",
+                method : "GET",
+                success: function(data){
+                    for(let i=0;i<50;i++)
+					{
+					  let UserInfo = formUserInfo(data,i);
+					  let div1 = document.createElement("div");
+                      div1.innerHTML = "<p>"+UserInfo+"</p>";
+                      document.body.append(div1);
+					}
+
+                    
+                    
+                 } 
+             }); 
+            
+			
+			
+               
+
+		</script>
+	</script>
+    </body>
+</html>

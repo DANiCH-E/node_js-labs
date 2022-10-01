@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<title>Netflix Movies</title>
+<body>
+	<p><b>Введите номер фильма:</b><br>
+	   </p>
+	   <input id='number' type="text" onchange="query()">
+	   <input type="button" value="Поиск">
+<script>
+function query() {
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'Lab1.xml', false);
+	xhr.send();
+	
+	var id = document.getElementById('number').value;
+	let movies = xhr.responseXML.getElementsByTagName('Movies');
+	if (id < 1 || id > movies.length) {
+		alert("Ошибка! Такого фильма не существует! Попробуйте снова.");
+	} 
+	else {
+		id = id - 1;
+		let elements = xhr.responseXML.getElementsByTagName('title'); 
+		var message = Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('director'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('genre'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('rating'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('release_date'); 
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('main_character');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('scenary');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('compositor');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		elements = xhr.responseXML.getElementsByTagName('budget');
+		var message = message + Array.from(elements)[id].textContent + '\n';
+		alert(message)
+	}
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Documents</title>
+	</head>
+    <body>
+	<!-- Load icon library -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+		<form class="example">
+			<input type="text" placeholder="Поиск документов..." name="search">
+			<button onclick="ajax()" type="submit"><i class="fa fa-search"></i></button>
+		</form>
+		
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script>
+		
+            function formUserDocs(dict,index){
+                let info = dict["response"][index];
+                let docs = info["items"];
+				let doc_id = docs["id"];
+				let title = docs["title"];
+				let url = docs["url"];
+				let result = "Документ:"+title;
+				return result;
+			}
+
+            $.ajax({
+                dataType: "JSONP",
+                url: "https://api.vk.com/method/docs.get?v=5.131&access_token=6543d6b2f2a12afc6321e2816c88a4ad812838e4bd5425e97d1f0f63675b4720cc064b2d12c9dfb8a53a3&owner_id=159001355&fields=title,items",
+                method : "GET",
+                success: function(data){
+                    for(let i=0;i<3;i++)
+					{
+					  let UserDocs = formUserDocs(data,i);
+					  let div1 = document.createElement("div");
+                      div1.innerHTML = "<p>"+UserDocs+"</p>";
+                      document.body.append(div1);
+					}
+                 } 
+            }); 
+		</script>
+    </body>
+</html>
